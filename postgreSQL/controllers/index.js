@@ -1,0 +1,5 @@
+exports.Helpful = require('./review_rating/markHelpful.js')
+exports.Report = require('./review_rating/markReport.js')
+exports.GetReviews = require('./review_rating/getReviews.js')
+exports.AddReview = require('./review_rating/addReview.js')
+exports.GetReviewMeta = require('./review_rating/getReviewMeta.js')
