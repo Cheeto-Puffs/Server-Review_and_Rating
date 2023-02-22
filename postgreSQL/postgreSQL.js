@@ -8,7 +8,7 @@ const pool = new Pool({
   port: process.env.PG_PORT || '5432',
   database: process.env.PG_DATABASE || 'postgres',
   password: process.env.PG_PASSWORD || '',
-  max: 10,
+  max: 15,
   // connectionTimeoutMillis: 2000,
   // idleTimeoutMillis: 30000,
 })
