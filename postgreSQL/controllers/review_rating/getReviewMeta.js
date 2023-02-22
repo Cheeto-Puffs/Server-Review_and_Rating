@@ -1,8 +1,22 @@
 const pool = require('../../postgreSQL.js')
+// const Redis = require('ioredis')
+// const redis = new Redis({
+//   port: 6379,
+//   host: '127.0.0.1',
+// })
 
 module.exports = {
-  getReviewMeta: (req, res) => {
+  getReviewMeta: async (req, res) => {
     let { product_id } = req.query
+
+    // let cacheKey = `Meta_${product_id}`
+    // let cache = await redis.get(cacheKey)
+
+    // if (cache) {
+    //   cache = JSON.parse(cache)
+    //   return res.status(200).send({ ...cache, source: 'redisCache' })
+    // }
+
     return pool
       .connect()
       .then(async (client) => {
@@ -70,9 +84,12 @@ module.exports = {
         }
 
         await client.query('COMMIT')
-        res
-          .status(200)
-          .send({ product_id, ratings, recommended, characteristics })
+        client.release()
+
+        let result = { product_id, ratings, recommended, characteristics }
+        // redis.setex(cacheKey, 600, JSON.stringify(result))
+
+        res.status(200).send(result)
       })
       .catch((err) => res.status(500).send(err))
   },

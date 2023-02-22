@@ -66,6 +66,7 @@ CSV HEADER;
 SELECT setval(pg_get_serial_sequence('reviews', 'id'), max(id)) FROM reviews;
 SELECT setval(pg_get_serial_sequence('reviews_photos', 'id'), max(id)) FROM reviews_photos;
 SELECT setval(pg_get_serial_sequence('characteristic_reviews', 'id'), max(id)) FROM characteristic_reviews;
+SELECT setval(pg_get_serial_sequence('characteristics', 'id'), max(id)) FROM characteristics;
 
 CREATE INDEX review_product_id_idx ON reviews (product_id);
 CREATE INDEX characteristics_product_id_idx ON characteristics (product_id);

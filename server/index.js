@@ -13,19 +13,24 @@ app.use('/api', pgRouter)
 
 const port = process.env.PORT || 3000
 
-const StartServer = async () => {
-  try {
-    await connectDB(process.env.MONGO_URI)
-    app.listen(port, () => {
-      console.log(`Server listening on port: ${port}`)
-    })
-  } catch (error) {
-    console.log(error)
-  }
-}
+// // For Mongo DB
+// const StartServer = async () => {
+//   try {
+//     await connectDB(process.env.MONGO_URI)
+//     app.listen(port, () => {
+//       console.log(`Server listening on port: ${port}`)
+//     })
+//   } catch (error) {
+//     console.log(error)
+//   }
+// }
+
+app.listen(port, () => {
+  console.log(`Server listening on port: ${port}`)
+})
 
 app.get('/api', (req, res) => {
   res.send('Test')
 })
 
-StartServer()
+// StartServer()
