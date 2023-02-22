@@ -27,7 +27,7 @@ export const options = {
     // { duration: '10s', target: 0 }, // ramp-down to 0 users
   ],
   thresholds: {
-    http_req_duration: [{ threshold: 'p(95) < 150', abordOnFail: true }], // 99% of requests must complete below 1s
+    http_req_duration: [{ threshold: 'p(95) < 150', abordOnFail: true }], // 99% of requests must complete below 150ms
     http_req_failed: [{ threshold: 'rate < 0.01', abordOnFail: true }],
   },
 }
