@@ -1,9 +1,9 @@
 const pool = require('../../postgreSQL.js')
-// const Redis = require('ioredis')
-// const redis = new Redis({
-//   port: 6379,
-//   host: '127.0.0.1',
-// })
+const Redis = require('ioredis')
+const redis = new Redis({
+  port: 6379,
+  host: '127.0.0.1',
+})
 
 module.exports = {
   getReviews: async (req, res) => {
@@ -22,13 +22,13 @@ module.exports = {
 
     let offset = count * (page - 1)
 
-    // let cacheKey = `${product_id}_${page.toString()}_${count.toString()}_${sort}`
-    // let cache = await redis.get(cacheKey)
+    let cacheKey = `${product_id}_${page.toString()}_${count.toString()}_${sort}`
+    let cache = await redis.get(cacheKey)
 
-    // if (cache) {
-    //   cache = JSON.parse(cache)
-    //   return res.status(200).send({ ...cache, source: 'redisCache' })
-    // }
+    if (cache) {
+      cache = JSON.parse(cache)
+      return res.status(200).send({ ...cache, source: 'redisCache' })
+    }
 
     const query = {
       text: `
@@ -43,18 +43,18 @@ module.exports = {
         ) AS photos
       FROM reviews
       WHERE product_id = $1 AND reported = false
-      ORDER BY $2
-      LIMIT $3
-      OFFSET $4;
+      ORDER BY ${sort}
+      LIMIT $2
+      OFFSET $3;
       `,
-      values: [product_id, sort, count.toString(), offset.toString()],
+      values: [product_id, count.toString(), offset.toString()],
     }
 
     return pool
       .connect()
       .then((client) => {
         client.query(query).then((result) => {
-          // redis.setex(cacheKey, 600, JSON.stringify(result))
+          redis.setex(cacheKey, 60, JSON.stringify(result))
           client.release()
           res.status(200).send(result)
         })
