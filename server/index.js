@@ -4,6 +4,7 @@ const morgan = require('morgan')
 const mongoRouter = require('./routers/mongoRouter.js')
 const pgRouter = require('./routers/pgRouter.js')
 const app = express()
+const path = require('path')
 
 require('dotenv').config()
 
@@ -29,8 +30,16 @@ app.listen(port, () => {
   console.log(`Server listening on port: ${port}`)
 })
 
-app.get('/api', (req, res) => {
-  res.send('Test')
+app.get(`/${process.env.LOADER_IO}`, (req, res) => {
+  res.send(process.env.LOADER_IO)
+})
+
+app.get(`/${process.env.LOADER_IO}.txt`, (req, res) => {
+  res.send(process.env.LOADER_IO)
+})
+
+app.get(`/${process.env.LOADER_IO}.html`, (req, res) => {
+  res.send(process.env.LOADER_IO)
 })
 
 // StartServer()

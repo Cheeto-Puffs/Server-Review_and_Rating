@@ -8,7 +8,7 @@ const pool = new Pool({
   port: process.env.PG_PORT || '5432',
   database: process.env.PG_DATABASE || 'postgres',
   password: process.env.PG_PASSWORD || '',
-  max: 15,
+  // max: 20,
   // connectionTimeoutMillis: 2000,
   // idleTimeoutMillis: 30000,
 })
@@ -18,17 +18,17 @@ pool.on('error', (err, client) => {
   process.exit(-1)
 })
 
-pool.on('connect', (client) => {
-  console.log(
-    `Client ${client.user} connect to database ${client.database} at ${client.host} on port ${client.port}`
-  )
-})
+// pool.on('connect', (client) => {
+//   console.log(
+//     `Client ${client.user} connect to database ${client.database} at ${client.host} on port ${client.port}`
+//   )
+// })
 
-pool.on('acquire', (client) => {
-  console.log(
-    `Client ${client.user} disconnect from database ${client.database} at ${client.host} on port ${client.port}`
-  )
-})
+// pool.on('acquire', (client) => {
+//   console.log(
+//     `Client ${client.user} disconnect from database ${client.database} at ${client.host} on port ${client.port}`
+//   )
+// })
 
 // const client = await pool.connect()
 
