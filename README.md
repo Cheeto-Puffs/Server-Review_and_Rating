@@ -43,9 +43,22 @@
 </div>
 
 - <p align="left">Nginx was used as the load balancer as it allows for easy addition and removal of instances on request. The t2 micro system has hardware limitations that make this a necessary choice. Nginx cache was preferred over Redis cache due to the ability to create a shared proxy cache that can be used by different services with different software stacks. This means that even if the API is down, nginx can still respond with cached content.</p>
+
 ###
 
 <h2 align="left">Result</h2>
 
 ###
 
+[Result Link](https://gist.github.com/VesLan/12c44d0585562989b6c62b36d3e3447a)
+
+<h2 align="left">Language</h2>
+
+###
+
+<div align="left">
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" height="40" width="52" alt="javascript logo"  />
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" height="40" width="52" alt="html5 logo"  />
+</div>
+
+###
